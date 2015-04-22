@@ -16,7 +16,9 @@ module Icalendar
           begin
             parsed_date = ::DateTime.strptime(value, FORMAT)
           rescue ArgumentError => e
-            raise ArgumentError.new("Failed to parse \"#{value}\" - #{e.message}")
+            # '19700101' example; 'false' to be replaced by 'strict' predicate
+            parsed_date = ::DateTime.parse(value)
+            raise ArgumentError.new("Failed to parse \"#{value}\" - #{e.message}") if false
           end
 
           super parsed_date, params
